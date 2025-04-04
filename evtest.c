@@ -65,6 +65,7 @@
 
 #define BITS_PER_LONG (sizeof(long) * 8)
 #define NBITS(x) ((((x)-1)/BITS_PER_LONG)+1)
+#define NBYTES(x) (NBITS(x) * sizeof(long))
 #define OFF(x)  ((x)%BITS_PER_LONG)
 #define BIT(x)  (1UL<<OFF(x))
 #define LONG(x) ((x)/BITS_PER_LONG)
@@ -101,10 +102,10 @@ static const struct query_mode {
 	int max;
 	int rq;
 } query_modes[] = {
-	{ "EV_KEY", EV_KEY, KEY_MAX, EVIOCGKEY(KEY_MAX) },
-	{ "EV_LED", EV_LED, LED_MAX, EVIOCGLED(LED_MAX) },
-	{ "EV_SND", EV_SND, SND_MAX, EVIOCGSND(SND_MAX) },
-	{ "EV_SW",  EV_SW, SW_MAX, EVIOCGSW(SW_MAX) },
+	{ "EV_KEY", EV_KEY, KEY_MAX, EVIOCGKEY(NBYTES(KEY_MAX)) },
+	{ "EV_LED", EV_LED, LED_MAX, EVIOCGLED(NBYTES(LED_MAX)) },
+	{ "EV_SND", EV_SND, SND_MAX, EVIOCGSND(NBYTES(SND_MAX)) },
+	{ "EV_SW",  EV_SW, SW_MAX, EVIOCGSW(NBYTES(SW_MAX)) },
 };
 
 static int grab_flag = 0;
@@ -1163,7 +1164,7 @@ static int print_device_info(int fd)
 	printf("Input device name: \"%s\"\n", name);
 
 	memset(bit, 0, sizeof(bit));
-	ioctl(fd, EVIOCGBIT(0, EV_MAX), bit[0]);
+	ioctl(fd, EVIOCGBIT(0, NBYTES(KEY_MAX)), bit[0]);
 	printf("Supported events:\n");
 
 	for (type = 0; type < EV_MAX; type++) {
@@ -1172,7 +1173,7 @@ static int print_device_info(int fd)
 
 			printf("  Event type %d (%s)\n", type, typename(type));
 			if (type == EV_SYN) continue;
-			ioctl(fd, EVIOCGBIT(type, KEY_MAX), bit[type]);
+			ioctl(fd, EVIOCGBIT(type, NBYTES(KEY_MAX)), bit[type]);
 			for (code = 0; code < KEY_MAX; code++)
 				if (test_bit(code, bit[type])) {
 					if (have_state) {
