@@ -1,0 +1,19 @@
+package {
+    default_applicable_licenses: ["external_evtest_license"],
+}
+
+license {
+    name: "external_evtest_license",
+    license_kinds: ["SPDX-license-identifier-GPL-2.0-or-later"],
+    license_text: ["COPYING"],
+}
+
+cc_binary {
+    name: "evtest",
+    srcs: ["evtest.c"],
+    cflags: [
+        "-Wno-unused-parameter",
+        "-Wno-initializer-overrides",
+    ],
+    vendor_available: true,
+}
