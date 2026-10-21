@@ -15,5 +15,4 @@ cc_binary {
         "-Wno-unused-parameter",
         "-Wno-initializer-overrides",
     ],
-    vendor_available: true,
 }

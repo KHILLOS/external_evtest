@@ -2,6 +2,9 @@
  *  Copyright (c) 1999-2000 Vojtech Pavlik
  *  Copyright (c) 2009-2011 Red Hat, Inc
  */
+/*
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
 
 /**
  * @file
