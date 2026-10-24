@@ -29,6 +29,8 @@ These are REQUIRED for AOSP 17, not functional changes:
 - SPDX header on evtest.c
 
 ## Diff Summary
+Port delta vs upstream base `96e6cb5` (evtest-1.36), pinned endpoints
+(`git diff --shortstat 96e6cb5 4e0c15b` → "8 files changed, 130 insertions(+)"):
 ```
 Files changed: 8 (6 content + 2 evidence)
 Insertions: 130 (Android.bp + METADATA + NOTICE + MODULE_LICENSE_GPL2
@@ -36,10 +38,27 @@ Insertions: 130 (Android.bp + METADATA + NOTICE + MODULE_LICENSE_GPL2
 Deletions: 0
 Source logic changes: 0
 ```
-Measured by `git diff --shortstat 96e6cb5 khillos-17`: 8 files changed, 130 insertions(+), 0 deletions.
 The single `vendor_available: true` removal was intra-port history (added by
 `bd4c587`, removed by `4e0c15b`), so it does not appear in the cumulative diff
 vs base `96e6cb5`.
+
+Post-audit corrections (commit `884971e`, 2026-10-24) — no source change
+(`git diff 884971e^ 884971e -- evtest.c` → empty; `git show --shortstat 884971e`
+→ 4 files changed, 349 insertions(+), 13 deletions(-)):
+- METADATA `license_type: NOTICE` → `RESTRICTED` (GPL-2.0-or-later per
+  tools/external_updater/metadata.proto; cf. external/dtc, external/kmod)
+- NOTICE: truncated preamble replaced with the complete GPLv2 text
+  (byte-identical to `COPYING`)
+- Android.bp: trailing newline after final `}`; license module gained
+  `visibility: [":__subpackages__"]`
+- this evidence correction
+
+Cumulative including audit fixes, pinned (`git diff --shortstat 96e6cb5 884971e`
+→ "8 files changed, 466 insertions(+)"): still the same 8 files, still 0
+source-logic changes; the growth over 130 is the full-text NOTICE and these
+expanded notes. Measurements are pinned to explicit commit endpoints so they
+remain reproducible at any HEAD (a prior revision measured against the moving
+branch tip, which changed as soon as the correction commit landed).
 
 ## Conclusion
 ✅ **NOTHING ELSE DISTURBED** - All modifications are:
