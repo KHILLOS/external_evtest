@@ -5,7 +5,7 @@
 name: "evtest"
 description: "evtest is a tool to query and test Linux input device events."
 third_party {
-  license_type: NOTICE
+  license_type: RESTRICTED
   last_upgrade_date {
     year: 2026
     month: 10

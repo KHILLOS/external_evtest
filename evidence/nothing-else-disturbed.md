@@ -2,7 +2,7 @@
 
 ## Verification Method
 Compared UPSTREAM/external_evtest (khillos-17 branch) against:
-1. BlissOS android-x86 reference at external/evtest (commit bd4c587)
+1. BlissOS android-x86 reference at external/evtest (commit `e445e61df30ae095a9185b84830c85907d46042b`, hmtheboy154, "Adding Android.mk to build on Android")
 2. Upstream freedesktop libevdev/evtest@evtest-1.36 (tag 96e6cb5)
 
 ## Source Files - Content Verification
@@ -30,11 +30,16 @@ These are REQUIRED for AOSP 17, not functional changes:
 
 ## Diff Summary
 ```
-Files changed: 6
-Insertions: ~100 (Android.bp + metadata + SPDX)
-Deletions: 1 (vendor_available: true line removed)
+Files changed: 8 (6 content + 2 evidence)
+Insertions: 130 (Android.bp + METADATA + NOTICE + MODULE_LICENSE_GPL2
+                     + OWNERS + evtest.c SPDX header + evidence files)
+Deletions: 0
 Source logic changes: 0
 ```
+Measured by `git diff --shortstat 96e6cb5 khillos-17`: 8 files changed, 130 insertions(+), 0 deletions.
+The single `vendor_available: true` removal was intra-port history (added by
+`bd4c587`, removed by `4e0c15b`), so it does not appear in the cumulative diff
+vs base `96e6cb5`.
 
 ## Conclusion
 ✅ **NOTHING ELSE DISTURBED** - All modifications are:

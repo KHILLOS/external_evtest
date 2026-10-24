@@ -4,6 +4,7 @@ package {
 
 license {
     name: "external_evtest_license",
+    visibility: [":__subpackages__"],
     license_kinds: ["SPDX-license-identifier-GPL-2.0-or-later"],
     license_text: ["COPYING"],
 }
